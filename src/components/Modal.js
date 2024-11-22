@@ -12,7 +12,5 @@ const styleModal = {
 };
 
 export default function Modal({ children }) {
-  const [questionType, setQuestionType] = React.useState("");
-
   return <div style={styleModal}>{children}</div>;
 }

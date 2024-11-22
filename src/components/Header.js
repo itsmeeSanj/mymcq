@@ -2,13 +2,24 @@ import React from "react";
 import Button from "./Button";
 import Modal from "./Modal";
 import { SELECT } from "./Form";
+import { useModal } from "../hooks/useModal";
 
 export default function Header() {
-  const [questionModalShow, setQuestionModalShow] = React.useState(false);
+  const [questionType, setQuestionType] = React.useState("");
+
+  const { isModalShow, modalClose } = useModal();
 
   const headerStyle = {
     background: "rgb(191 198 232)",
     position: "relative",
+  };
+
+  const styleSelectButtonTopic = {
+    padding: "6px",
+    background: "#fff",
+    border: "1px solid rgb(118, 118, 118)",
+    width: "100%",
+    cursor: "pointer",
   };
 
   return (
@@ -23,10 +34,8 @@ export default function Header() {
           }}
         >
           <div>
-            <Button onClick={() => setQuestionModalShow((show) => !show)}>
-              Add Question
-            </Button>
-            {questionModalShow && (
+            <Button onClick={modalClose}>Add Question</Button>
+            {isModalShow && (
               //   <>
               <Modal>
                 <form>
@@ -34,14 +43,11 @@ export default function Header() {
                     <SELECT
                       mrBottom='16px'
                       value={questionType}
-                      onChange={(e) => setQuestionType(e.target.value)}
-                      style={{
-                        marginBottom: "16px",
-                      }}
+                      setValue={setQuestionType}
                     >
                       <option value=''>Select Question Type</option>
                       <option value='multiple'>Mutliple Choice Question</option>
-                      <option value='checkbox'>Checkbox QUestion</option>
+                      <option value='checkbox'>Checkbox Question</option>
                     </SELECT>
                   </div>
                   <div>
